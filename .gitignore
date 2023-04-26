@@ -1,0 +1,5 @@
+# Ignore out files.
+*.exe
+# Ignore Vim files.
+*~
+*.swp
