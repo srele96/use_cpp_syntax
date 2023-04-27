@@ -1,3 +1,4 @@
+#include <utility>
 #include <functional>
 #include <iostream>
 
@@ -129,8 +130,8 @@ template <typename T> void WTF::Woah(const std::function<void(const T &)> &cb) {
 
 ImplicitConversion::Construct::Construct(int value) : m_value{value} {}
 ImplicitConversion::NonPrimitive::NonPrimitive(Data::Transfer data)
-    : m_data{data} {}
+    : m_data{std::move(data)} {}
 
 DisableImplicitConversion::Construct::Construct(int value) : m_value{value} {}
 DisableImplicitConversion::NonPrimitive::NonPrimitive(Data::Transfer data)
-    : m_data{data} {}
+    : m_data{std::move(data)} {}
