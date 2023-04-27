@@ -61,6 +61,11 @@ struct Construct {
   Construct(int value);
 };
 
+struct NonPrimitive {
+  Data::Transfer m_data;
+  NonPrimitive(Data::Transfer data);
+};
+
 } // namespace ImplicitConversion
 
 namespace DisableImplicitConversion {
@@ -68,6 +73,11 @@ namespace DisableImplicitConversion {
 struct Construct {
   int m_value;
   explicit Construct(int value);
+};
+
+struct NonPrimitive {
+  Data::Transfer m_data;
+  explicit NonPrimitive(Data::Transfer data);
 };
 
 } // namespace DisableImplicitConversion
@@ -88,6 +98,12 @@ int main() {
   // DisableImplicitConversion::Construct bar = 1; // Should throw an error
   // Check the constructed value
   // std::cout << bar.m_value;
+
+  ImplicitConversion::NonPrimitive baz{Data::Transfer{}};
+  // Initializer list prevents implicit conversion.
+  DisableImplicitConversion::NonPrimitive qux{Data::Transfer{}};
+  // Error, implicit conversion
+  // DisableImplicitConversion::NonPrimitive fred = Data::Transfer{};
 
   return 0;
 }
@@ -112,5 +128,9 @@ template <typename T> void WTF::Woah(const std::function<void(const T &)> &cb) {
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 ImplicitConversion::Construct::Construct(int value) : m_value{value} {}
+ImplicitConversion::NonPrimitive::NonPrimitive(Data::Transfer data)
+    : m_data{data} {}
 
 DisableImplicitConversion::Construct::Construct(int value) : m_value{value} {}
+DisableImplicitConversion::NonPrimitive::NonPrimitive(Data::Transfer data)
+    : m_data{data} {}
