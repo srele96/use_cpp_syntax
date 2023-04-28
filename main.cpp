@@ -4,6 +4,28 @@
 
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+namespace SelfReference {
+
+struct Print {
+  int one;
+  int two;
+
+  void OutThis(std::ostream &os) {
+    // In this very moment I realized what `this` means... each object in C++
+    // gets a pointer to itself. Why is it that in moments like the current one
+    // I truly **GET** what it means? I believe i've read before that each
+    // object gets pointer to itself.` Why do I truly get something only much
+    // after reading or using it? Why does it first need to go through my hands
+    // or thoughts and come in the form of self-realisation in order for me to
+    // truly get it? I will ask ChatGPT.
+    os << this->one << " : " << this->two << " : " << this;
+  }
+};
+
+} // namespace SelfReference
+
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
 namespace Lambda {
 
 template <typename T> struct Performer {
@@ -105,6 +127,12 @@ int main() {
   DisableImplicitConversion::NonPrimitive qux{Data::Transfer{}};
   // Error, implicit conversion
   // DisableImplicitConversion::NonPrimitive fred = Data::Transfer{};
+
+  constexpr int one{10};
+  constexpr int two{20};
+  SelfReference::Print selfReferencePrinter{one, two};
+  std::cout << "\n";
+  selfReferencePrinter.OutThis(std::cout);
 
   return 0;
 }
