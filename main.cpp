@@ -107,6 +107,19 @@ struct NonPrimitive {
 
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+/**
+ * Container with non primitive members which use non-default move semantic.
+ * When a constructor takes in such type, should it be invoked with std::move?
+ * The clang-tidy complains when I use std::move on `int` or other built in
+ * types that they are trivially something. How do I handle those cases? How
+ * does std::move affect nested types in a class container?
+ **/
+
+// TODO(srecko): Remove std::move from Data::Transfer because it contains only
+// built-in types.
+
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
 int main() {
   WTF::MyFunction<Data::Transfer>([](const Data::Transfer &data) { /* ... */ });
 
