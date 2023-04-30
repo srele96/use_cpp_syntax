@@ -140,9 +140,6 @@ void ConstantPointer(const int *const num) {
  * does std::move affect nested types in a class container?
  **/
 
-// TODO(srecko): Remove std::move from Data::Transfer because it contains only
-// built-in types.
-
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 int main() {
