@@ -107,6 +107,32 @@ struct NonPrimitive {
 
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+// Until now I knew that I read the following type as
+// `constant pointer to constant integer`: `const int* const`
+// I had a `click` moment and decided to see how it behaves and what it does. I
+// knew that const qualifier disallows change and I guessed that it disallows me
+// to change what the pointer points to. `namespace ConstQualifier` wraps that
+// up.
+namespace ConstQualifier {
+
+// `* const` can not change what it points to.
+// `*` can change what it points to.
+void NonConstantPointer(const int *num) {
+  int foo{30};
+  // (*num) = 10; // Error
+  num = &foo;
+  // (*num) = 15; // Error
+}
+
+void ConstantPointer(const int *const num) {
+  int foo{30};
+  // num = &foo; // Error
+}
+
+} // namespace ConstQualifier
+
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
 /**
  * Container with non primitive members which use non-default move semantic.
  * When a constructor takes in such type, should it be invoked with std::move?
